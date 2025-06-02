@@ -64,6 +64,7 @@ class Kunde{
 		this.Vorname
 		this.Benutzername
 		this.Kennwort
+		this.Telefonnummer
 		// IstEingeloggt ist ein boolean.
 		// Der Wert ist entweder wahr oder falsch.
 		this.IstEingeloggt
@@ -78,6 +79,7 @@ kunde.Nachname = "Kiff"
 kunde.Vorname = "Pit"
 kunde.Benutzername = "pk"
 kunde.Kennwort = "123"
+kunde.Telefonnummer
 kunde.IstEingeloggt = false
 
 // Klassenefinition des Kundenberaters
@@ -100,6 +102,7 @@ kundenberater.Vorname = "Hildegard"
 kundenberater.Telefonnummer = "012345 67890"
 kundenberater.Mail = "h.pass@borken-bank.de"
 kundenberater.Bild = "pass.jpg"
+
 
 'use strict';
 
@@ -377,18 +380,18 @@ app.get('/kreditBeantragen', (req, res) => {
 });
 
 
-// Kommentar: 
+// Kommentar: Die Funktion app.post('/kreditBeantragen...) wird abgearbeitet, wenn der Kunde auf dem Formular den Absenden-Button klickt. Das bedeutet dass die app.post nach der app.get angesurft/gerendert wird.
 app.post('/kreditBeantragen', (req, res) => {
 
-	// Kommentar:
+	// Kommentar: 
 	let zinsbetrag = req.body.Betrag;
 	let laufzeit = req.body.Laufzeit;
 	let zinssatz = req.body.Zinssatz;
 
-	// Kommentar:
+	// Kommentar: Hier wird der für den Kunden entsprechende Kredit berechnet. Um das zu machen wird der vorher festgelegte Zinsbetrag mit der Formel math.pow multipliziert.
 	let kredit = zinsbetrag * Math.pow(1+zinssatz/100,laufzeit);
 	
-	// Kommentar:
+	// Kommentar: Mit console.log wird der entsprechende und vorher ausgerechnete Kreditbetrag auf der Konsole ausgegeben. Wir sehen die Antwort dann im Terminal.
 	console.log("Rückzahlungsbetrag: " + kredit + " €.")
 
 	// Kommentar:
@@ -396,7 +399,7 @@ app.post('/kreditBeantragen', (req, res) => {
 		Laufzeit: laufzeit,
 		Zinssatz: zinssatz,		
 		Betrag: zinsbetrag,
-		// Kommentar:
+		// Kommentar: Bei Meldung passiert das gleiche wie bei console.log, nur dass die Antwort nicht auf der Konsole ausgegeben wird sondern dem Kunden direkt in der Banking App angezeigt wird.
 		Meldung: "Rückzahlungsbetrag: " + kredit + " €."
 	});
 });
